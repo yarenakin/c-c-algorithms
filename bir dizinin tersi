@@ -1,0 +1,22 @@
+#include <iostream>
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+int main()
+{
+
+
+int dizi[10]={11,12,13,14,15,16,17,18,19,20};
+int tempdizi[10];
+	
+for(int i=0;i<10;i++)
+{
+	tempdizi[i]=dizi[9-i];	
+	cout<<" "<<tempdizi[i]  ;
+}
+
+	return 0;
+}
