@@ -11,6 +11,7 @@ class pots
     int pin;
     int okunacakAdres, okunanVeri;
     int check = 0;
+    int check1=0;
     int i = 0;
     int vl = 0;
     int sayac;
@@ -35,7 +36,7 @@ class pots
 
       analogReading();
 
-      if (digitalRead(2) == 1 && check == 0)
+      if (digitalRead(2) == 1 && check == 0 && check1==0)
       {
 
         if (pin == 14) sayac = 0;
@@ -61,12 +62,11 @@ class pots
 
 
         check++;
-
-        if (i == eepromBellek)
+        
+        if(i>=eepromBellek && check1==0)
         {
-          Serial.println("ADRES KAPASITESI DOLDU");
-          i = 0;
-
+          Serial.println("Adres Kapasitesi Doldu");
+          check1=1;
         }
 
       }
@@ -80,24 +80,12 @@ class pots
 
 };
 
-class buton
-{
-  public:
 
-    buton(int buton_pin)
-    {
-      pinMode(buton_pin, INPUT);
-    }
-
-};
 
 pots pot1(14);
 pots pot2(15);
 pots pot3(16);
 pots pot4(17);
-
-buton buton1(2);
-
 
 void setup()
 {
