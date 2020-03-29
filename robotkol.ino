@@ -11,7 +11,7 @@ class pots
     int pot_value;
     int son_potVal;
     int pin;
-    int okunacakAdres, okunanVeri;
+    int okunanVeri;
     int check = 0;
     int check1 = 0;
     int vl = 0;
