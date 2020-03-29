@@ -6,14 +6,14 @@ int eepromBellek;
 class pots
 {
   private:
-  
+
     int adres = 0;
     int okunanVeri;
     int check = 0;
     int echeck = 0;
     int vl = 0;
     int count;
-    
+
   public:
     int pot_value;
     int son_potVal;
@@ -33,7 +33,7 @@ class pots
       son_potVal = pot_value;
     }
 
-    void ayar()
+    void regulation()
     {
 
       analogReading();
@@ -100,10 +100,10 @@ void setup()
 
 void loop()
 {
-  pot1.ayar();
-  pot2.ayar();
-  pot3.ayar();
-  pot4.ayar();
+  pot1.regulation();
+  pot2.regulation();
+  pot3.regulation();
+  pot4.regulation();
 }
 
 
