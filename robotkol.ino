@@ -11,7 +11,7 @@ class pots
     int pin;
     int okunacakAdres, okunanVeri;
     int check = 0;
-    int check1=0;
+    int check1 = 0;
     int i = 0;
     int vl = 0;
     int sayac;
@@ -20,7 +20,6 @@ class pots
     {
       pinMode(pinNumber, INPUT);
       pin = pinNumber;
-
     }
 
     void analogReading()
@@ -28,7 +27,6 @@ class pots
       pot_value = analogRead(pin);
       pot_value = map(pot_value, 0, 1023, 0, 255);
       son_potVal = pot_value;
-      //Serial.println(pot_value);
     }
 
     void ayar()
@@ -36,13 +34,16 @@ class pots
 
       analogReading();
 
-      if (digitalRead(2) == 1 && check == 0 && check1==0)
+      if (digitalRead(2) == 1 && check == 0 && check1 == 0)
       {
 
-        if (pin == 14) sayac = 0;
-        if (pin == 15) sayac = 100;
-        if (pin == 16) sayac = 200;
-        if (pin == 17) sayac = 300;
+        if (pin == A0) sayac = 1;
+
+        if (pin == A1) sayac = 340;
+
+        if (pin == A2) sayac = 680;
+
+        if (pin == A3) sayac = 1020;
 
 
         if (son_potVal != EEPROM.read(i))
@@ -60,40 +61,42 @@ class pots
           vl++;
         }
 
-
         check++;
-        
-        if(i>=eepromBellek && check1==0)
-        {
-          Serial.println("Adres Kapasitesi Doldu");
-          check1=1;
-        }
-
       }
 
       else if (digitalRead(2) == 0)
       {
         check = 0;
       }
+
+
+      if (i == eepromBellek - 1 && check1 == 0)
+      {
+        Serial.println("ADRES KAPASITESI DOLDU");
+        check1 = 1;
+      }
+
+
     }
-
-
 };
 
 
+pots pot1(A0);
+pots pot2(A1);
+pots pot3(A2);
+pots pot4(A3);
 
-pots pot1(14);
-pots pot2(15);
-pots pot3(16);
-pots pot4(17);
 
 void setup()
 {
 
   Serial.begin(9600);
   eeprom_reset();
+
   EEPROM.write(0, 90);
-  EEPROM.write(1, 90);
+  EEPROM.write(340, 90);
+  EEPROM.write(680, 90);
+  EEPROM.write(1020, 90);
 }
 
 
