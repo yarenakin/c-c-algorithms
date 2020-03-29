@@ -8,7 +8,7 @@ class pots
   private:
 
     int adres = 0;
-    int okunanVeri;
+    int readval;
     int check = 0;
     int echeck = 0;
     int vl = 0;
@@ -54,12 +54,12 @@ class pots
         {
           adres = vl + count;
           EEPROM.write(adres, son_potVal);
-          okunanVeri = EEPROM.read(adres);
+          readval = EEPROM.read(adres);
 
           Serial.print("EEPROMun ");
           Serial.print(adres);
           Serial.print(" Adresindeki Deger= ");
-          Serial.print(okunanVeri);
+          Serial.print(readval);
           Serial.println();
           vl++;
         }
