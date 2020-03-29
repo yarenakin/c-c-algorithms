@@ -5,6 +5,8 @@ int eepromBellek;
 
 class pots
 {
+  private:
+    int adres = 0;
   public:
     int pot_value;
     int son_potVal;
@@ -12,7 +14,6 @@ class pots
     int okunacakAdres, okunanVeri;
     int check = 0;
     int check1 = 0;
-    int i = 0;
     int vl = 0;
     int sayac;
 
@@ -46,15 +47,14 @@ class pots
         if (pin == A3) sayac = 1020;
 
 
-        if (son_potVal != EEPROM.read(i))
+        if (son_potVal != EEPROM.read(adres))
         {
-          i = vl + sayac;
-          EEPROM.write(i, son_potVal);
-          okunacakAdres = i;
-          okunanVeri = EEPROM.read(okunacakAdres );
+          adres = vl + sayac;
+          EEPROM.write(adres, son_potVal);
+          okunanVeri = EEPROM.read(adres);
 
           Serial.print("EEPROMun ");
-          Serial.print(okunacakAdres);
+          Serial.print(adres);
           Serial.print(" Adresindeki Deger= ");
           Serial.print(okunanVeri);
           Serial.println();
@@ -70,7 +70,7 @@ class pots
       }
 
 
-      if (i == eepromBellek - 1 && check1 == 0)
+      if (adres == eepromBellek - 1 && check1 == 0)
       {
         Serial.println("ADRES KAPASITESI DOLDU");
         check1 = 1;
