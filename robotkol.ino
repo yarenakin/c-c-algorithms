@@ -6,16 +6,19 @@ int eepromBellek;
 class pots
 {
   private:
+  
     int adres = 0;
+    int okunanVeri;
+    int check = 0;
+    int echeck = 0;
+    int vl = 0;
+    int count;
+    
   public:
     int pot_value;
     int son_potVal;
     int pin;
-    int okunanVeri;
-    int check = 0;
-    int check1 = 0;
-    int vl = 0;
-    int sayac;
+
 
     pots(int pinNumber)
     {
@@ -35,21 +38,21 @@ class pots
 
       analogReading();
 
-      if (digitalRead(2) == 1 && check == 0 && check1 == 0)
+      if (digitalRead(2) == 1 && check == 0 && echeck == 0)
       {
 
-        if (pin == A0) sayac = 1;
+        if (pin == A0) count = 1;
 
-        if (pin == A1) sayac = 340;
+        else if (pin == A1) count = 340;
 
-        if (pin == A2) sayac = 680;
+        else if (pin == A2) count = 680;
 
-        if (pin == A3) sayac = 1020;
+        else if (pin == A3) count = 1020;
 
 
         if (son_potVal != EEPROM.read(adres))
         {
-          adres = vl + sayac;
+          adres = vl + count;
           EEPROM.write(adres, son_potVal);
           okunanVeri = EEPROM.read(adres);
 
@@ -64,18 +67,14 @@ class pots
         check++;
       }
 
-      else if (digitalRead(2) == 0)
-      {
-        check = 0;
-      }
+      else if (digitalRead(2) == 0) check = 0;
 
 
-      if (adres == eepromBellek - 1 && check1 == 0)
+      else if (adres == eepromBellek - 1 && echeck == 0)
       {
         Serial.println("ADRES KAPASITESI DOLDU");
-        check1 = 1;
+        echeck = 1;
       }
-
 
     }
 };
@@ -89,7 +88,6 @@ pots pot4(A3);
 
 void setup()
 {
-
   Serial.begin(9600);
   eeprom_reset();
 
@@ -112,9 +110,5 @@ void loop()
 void eeprom_reset()
 {
   eepromBellek = EEPROM.length();
-
-  for (int i = 0 ; i < eepromBellek ; i++)
-  {
-    EEPROM.write(i, '\0');
-  }
+  for (int i = 0 ; i < eepromBellek ; i++) EEPROM.write(i, '\0');
 }
