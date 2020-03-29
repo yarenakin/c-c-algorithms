@@ -56,11 +56,6 @@ class pots
           EEPROM.write(adres, son_potVal);
           readval = EEPROM.read(adres);
 
-          Serial.print("EEPROMun ");
-          Serial.print(adres);
-          Serial.print(" Adresindeki Deger= ");
-          Serial.print(readval);
-          Serial.println();
           vl++;
         }
 
