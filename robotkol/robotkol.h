@@ -1,6 +1,6 @@
 #include <EEPROM.h>
 
-int eepromBellek;
+int eepromMem;
 
 class pots
 {
@@ -15,7 +15,7 @@ class pots
 
   public:
     int pot_value;
-    int son_potVal;
+    int last_potVal;
     int pin;
 
 
@@ -29,7 +29,7 @@ class pots
     {
       pot_value = analogRead(pin);
       pot_value = map(pot_value, 0, 1023, 0, 255);
-      son_potVal = pot_value;
+      last_potVal = pot_value;
     }
 
     void regulation()
@@ -49,7 +49,7 @@ class pots
         else if (pin == A3) count = 1020;
 
 
-        if (son_potVal != EEPROM.read(adres))
+        if (last_potVal != EEPROM.read(adres))
         {
           adres = vl + count;
           EEPROM.write(adres, son_potVal);
@@ -69,7 +69,7 @@ class pots
       else if (digitalRead(2) == 0) check = 0;
 
 
-      else if (adres == eepromBellek - 1 && echeck == 0)
+      else if (adres == eepromMem - 1 && echeck == 0)
       {
         Serial.println("ADRES KAPASITESI DOLDU");
         echeck = 1;
