@@ -1,5 +1,6 @@
 #include <EEPROM.h>
 
+
 int eepromMem;
 
 class pots
@@ -12,6 +13,9 @@ class pots
     int echeck = 0;
     int vl = 0;
     int count;
+
+    int go;
+    
 
   public:
     int pot_value;
@@ -40,19 +44,30 @@ class pots
       if (digitalRead(2) == 1 && check == 0 && echeck == 0)
       {
 
-        if (pin == A0) count = 1;
+        if (pin == A0) 
+        {
+          count = 1;
+          if(adres>=250) go=1 ;
+        }
 
-        else if (pin == A1) count = 340;
+        else if (pin == A1)
+        {
+          count = 250;
+          if(adres>=500) go=1;
+        }
+        
+        else if (pin == A2){
+          count = 500;
+          if(adres>=750) go=1;
+        }
 
-        else if (pin == A2) count = 680;
+        else if (pin == A3) count = 750;
 
-        else if (pin == A3) count = 1020;
-
-
-        if (last_potVal != EEPROM.read(adres))
+        
+        if (last_potVal != EEPROM.read(adres)&& go==0)
         {
           adres = vl + count;
-          EEPROM.write(adres, son_potVal);
+          EEPROM.write(adres, last_potVal);
           readval = EEPROM.read(adres);
 
           Serial.print("EEPROMun ");
