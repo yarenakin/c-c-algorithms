@@ -25,11 +25,16 @@ void loop()
   pot2.regulation();
   pot3.regulation();
   pot4.regulation();
+
+  //pot1.SerialDebug();
+  pot2.SerialDebug();
+  //pot3.SerialDebug();
+  //pot4.SerialDebug();
 }
 
 
 void eeprom_reset()
 {
-  eepromBellek = EEPROM.length();
-  for (int i = 0 ; i < eepromBellek ; i++) EEPROM.write(i, '\0');
+  eepromMem = EEPROM.length();
+  for (int i = 0 ; i < eepromMem ; i++) EEPROM.write(i, '\0');
 }
