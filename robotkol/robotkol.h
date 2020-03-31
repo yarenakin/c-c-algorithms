@@ -11,6 +11,7 @@ class pots
     int readval;
     int check = 0;
     int echeck = 0;
+    int tcheck = 0;
     int vl = 0;
     int count;
 
@@ -38,6 +39,7 @@ class pots
 
     void regulation()
     {
+      pinMode(5, OUTPUT);
 
       analogReading();
 
@@ -57,15 +59,16 @@ class pots
 
         else if (pin == A3) count = 750;
 
-        else if (adres == count + 250) go = 1;
+        else if (adres == count + 249) go = 1;
+
 
 
         if (last_potVal != EEPROM.read(adres) && go == 0)
         {
+          digitalWrite(5, HIGH);
           adres = vl + count;
           EEPROM.write(adres, last_potVal);
           readval = EEPROM.read(adres);
-
           vl++;
         }
 
@@ -73,6 +76,22 @@ class pots
       }
 
       else if (digitalRead(2) == 0) check = 0;
+
+
+
+      if (digitalRead(13) == 1 && tcheck == 0)
+      {
+        Serial.print("EEPROMun ");
+        Serial.print(adres);
+        Serial.print(" Adresindeki Deger= ");
+        Serial.print(readval);
+        Serial.println();
+        tcheck++;
+      }
+
+      else if (digitalRead(13) == 0) tcheck = 0;
+
+
 
 
       else if (adres == eepromMem - 1 && echeck == 0)
