@@ -39,14 +39,14 @@ class pots
 
     void regulation()
     {
-      
+
       pinMode(5, OUTPUT);
 
       analogReading();
 
       if (digitalRead(2) == 1 && check == 0 && echeck == 0)
       {
-        
+
         if (pin == A0) count = 1;
 
         else if (pin == A1)count = 250;
@@ -72,9 +72,20 @@ class pots
 
       else if (digitalRead(2) == 0) check = 0;
 
-      if (digitalRead(13) == 1 && tcheck == 0 && pin == A0)
+
+
+      if (adres == eepromMem - 1 && echeck == 0)
       {
-        for (int j = 1; j < 1023; j++)
+        echeck = 1;
+      }
+
+    }
+
+    void SerialDebug()
+    {
+      if (digitalRead(13) == 1 && tcheck == 0)
+      {
+        for (int j = 1; j < adres; j++)
         {
           if (EEPROM.read(j) != 0)
           {
@@ -86,17 +97,12 @@ class pots
           }
 
         }
-        
+
         tcheck++;
       }
 
       if (digitalRead(13) == 0) tcheck = 0;
 
-
-      if (adres == eepromMem - 1 && echeck == 0)
-      {
-        echeck = 1;
-      }
-
     }
+
 };
