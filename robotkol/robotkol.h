@@ -53,24 +53,23 @@ class pots
 
         if (last_potVal != EEPROM.read(adres) && go == 0)
         {
+          
           digitalWrite(5, HIGH);
           adres = vl + count;
           EEPROM.write(adres, last_potVal);
-          readval = EEPROM.read(adres);
           vl++;
+          
         }
 
         check++;
+        
       }
 
       else if (digitalRead(2) == 0) check = 0;
 
-
-      if (adres == eepromMem - 1 && echeck == 0)
-      {
-        echeck = 1;
-      }
-
+      
+      if (adres == eepromMem - 1 && echeck == 0)   echeck = 1;
+      
     }
 
 
