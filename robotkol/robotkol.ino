@@ -10,6 +10,7 @@ pots pot4(A3);
 void setup()
 {
   Serial.begin(9600);
+  pinMode(5, OUTPUT);
   eeprom_reset();
 
   EEPROM.write(0, 90);
@@ -26,10 +27,10 @@ void loop()
   pot3.regulation();
   pot4.regulation();
 
-  //pot1.SerialDebug();
+  pot1.SerialDebug();
   pot2.SerialDebug();
-  //pot3.SerialDebug();
-  //pot4.SerialDebug();
+  pot3.SerialDebug();
+  pot4.SerialDebug();
 }
 
 
