@@ -9,7 +9,6 @@ class pots
     int adres = 0;
     int readval;
     int check = 0;
-    int echeck = 0;
     int tcheck = 0;
     int vl = 0;
     int count;
@@ -66,9 +65,6 @@ class pots
       }
 
       else if (digitalRead(2) == 0) check = 0;
-
-      
-      if (adres == eepromMem - 1 && echeck == 0)   echeck = 1;
       
     }
 
