@@ -20,7 +20,6 @@ class pots
 
   public:
 
-
     pots(int pinNumber)
     {
       pinMode(pinNumber, INPUT);
@@ -38,21 +37,17 @@ class pots
     void regulation()
     {
 
+      
       analogReading();
 
-
       if (pin == A0) count = 1;
-
       else if (pin == A1)count = 250;
-
       else if (pin == A2) count = 500;
-
       else if (pin == A3) count = 750;
+     
+      if (adres == count + 249) go = 1;
 
-      else if (adres == count + 249) go = 1;
-
-
-
+      
       if (digitalRead(2) == 1 && check == 0 && echeck == 0)
       {
 
@@ -69,7 +64,6 @@ class pots
       }
 
       else if (digitalRead(2) == 0) check = 0;
-
 
 
       if (adres == eepromMem - 1 && echeck == 0)
