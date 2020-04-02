@@ -1,6 +1,5 @@
 #include <EEPROM.h>
 
-
 int eepromMem;
 
 class pots
@@ -14,14 +13,12 @@ class pots
     int tcheck = 0;
     int vl = 0;
     int count;
-
     int go;
-
-
-  public:
     int pot_value;
     int last_potVal;
     int pin;
+
+  public:
 
 
     pots(int pinNumber)
@@ -37,26 +34,27 @@ class pots
       last_potVal = pot_value;
     }
 
+
     void regulation()
     {
 
-      pinMode(5, OUTPUT);
-
       analogReading();
+
+
+      if (pin == A0) count = 1;
+
+      else if (pin == A1)count = 250;
+
+      else if (pin == A2) count = 500;
+
+      else if (pin == A3) count = 750;
+
+      else if (adres == count + 249) go = 1;
+
+
 
       if (digitalRead(2) == 1 && check == 0 && echeck == 0)
       {
-
-        if (pin == A0) count = 1;
-
-        else if (pin == A1)count = 250;
-
-        else if (pin == A2) count = 500;
-
-        else if (pin == A3) count = 750;
-
-        else if (adres == count + 249) go = 1;
-
 
         if (last_potVal != EEPROM.read(adres) && go == 0)
         {
@@ -81,21 +79,19 @@ class pots
 
     }
 
+
     void SerialDebug()
     {
       if (digitalRead(13) == 1 && tcheck == 0)
       {
-        for (int j = 1; j < adres; j++)
+        for (int j = count; j < adres; j++)
         {
-          if (EEPROM.read(j) != 0)
-          {
-            Serial.print("EEPROMun ");
-            Serial.print(j);
-            Serial.print(" Adresindeki Deger= ");
-            Serial.print(EEPROM.read(j));
-            Serial.println();
-          }
-
+          Serial.print("EEPROMun ");
+          Serial.print(j);
+          Serial.print(" Adresindeki Deger= ");
+          Serial.print(EEPROM.read(j));
+          Serial.println();
+          Serial.println("NOW");
         }
 
         tcheck++;
@@ -104,5 +100,6 @@ class pots
       if (digitalRead(13) == 0) tcheck = 0;
 
     }
+
 
 };
